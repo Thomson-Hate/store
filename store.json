@@ -27,8 +27,16 @@
       "price": 2999,
       "discount": 20,
       "colors": [
-        {"hex": "#000", "images": ["https://via.placeholder.com/400/000","https://via.placeholder.com/400/111"]},
-        {"hex": "#fff", "images": ["https://via.placeholder.com/400/fafafa"]}
+        {
+          "hex": "#000",
+          "images": ["https://via.placeholder.com/400/000","https://via.placeholder.com/400/111"],
+          "stock": true
+        },
+        {
+          "hex": "#fff",
+          "images": ["https://via.placeholder.com/400/fafafa"],
+          "stock": false
+        }
       ]
     },
     {
@@ -38,7 +46,11 @@
       "price": 1499,
       "discount": 0,
       "colors": [
-        {"hex": "#000", "images": ["https://via.placeholder.com/400/000"]}
+        {
+          "hex": "#000",
+          "images": ["https://via.placeholder.com/400/000"],
+          "stock": true
+        }
       ]
     }
   ]
