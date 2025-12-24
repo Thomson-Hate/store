@@ -1,5 +1,5 @@
 {
-  "maintenance": true,
+  "maintenance": false,
   "telegram": "https://t.me/your_chat",
   "categories": [
     {
