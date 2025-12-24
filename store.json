@@ -1,0 +1,45 @@
+{
+  "maintenance": true,
+  "telegram": "https://t.me/your_chat",
+  "categories": [
+    {
+      "id": "clothes",
+      "name": "Одежда",
+      "sub": [
+        {"id": "hoodies", "name": "Худи"},
+        {"id": "tshirts", "name": "Футболки"}
+      ]
+    },
+    {
+      "id": "accessories",
+      "name": "Аксессуары",
+      "sub": [
+        {"id": "glasses", "name": "Очки"},
+        {"id": "hats", "name": "Шапки"}
+      ]
+    }
+  ],
+  "products": [
+    {
+      "name": "HATE Hoodie",
+      "categories": ["clothes", "hoodies"],
+      "desc": "Тёплая худи",
+      "price": 2999,
+      "discount": 20,
+      "colors": [
+        {"hex": "#000", "images": ["https://via.placeholder.com/400/000","https://via.placeholder.com/400/111"]},
+        {"hex": "#fff", "images": ["https://via.placeholder.com/400/fafafa"]}
+      ]
+    },
+    {
+      "name": "Cool Glasses",
+      "categories": ["accessories","glasses"],
+      "desc": "Стильные очки",
+      "price": 1499,
+      "discount": 0,
+      "colors": [
+        {"hex": "#000", "images": ["https://via.placeholder.com/400/000"]}
+      ]
+    }
+  ]
+}
