@@ -6,58 +6,97 @@
 <title>HATE STORE</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif; background:#111; color:#fff; min-height:100vh; overflow-x:hidden; display:flex; flex-direction:column; }
-a { color:inherit; text-decoration:none; }
+body { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif; background:#111; color:#fff; min-height:100vh; overflow-x:hidden; display:flex; flex-direction:column; transition: background .4s, color .4s; }
+a { color:inherit; text-decoration:none; transition:.3s; }
+a:hover{color:#4fff4f;}
 
 /* TOP BAR */
-.top-bar{ position:fixed; top:14px; left:50%; transform:translateX(-50%); width:95%; max-width:1200px; height:75px; border-radius:24px; padding:0 26px; display:flex;align-items:center;justify-content:space-between; backdrop-filter:blur(18px) saturate(180%); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.25); box-shadow:0 8px 35px rgba(0,0,0,0.35); z-index:1000; transition:.4s; }
-.top-bar b{ font-size:1.4rem; font-weight:700; }
+.top-bar{ position:fixed; top:14px; left:50%; transform:translateX(-50%); width:95%; max-width:1200px; height:75px; border-radius:24px; padding:0 26px; display:flex;align-items:center;justify-content:space-between; backdrop-filter:blur(18px) saturate(180%); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.25); box-shadow:0 8px 35px rgba(0,0,0,0.35); z-index:1000; transition:.5s; }
+.top-bar b{ font-size:1.4rem; font-weight:700; transition:.4s; }
 
 /* TOGGLE */
-.toggle{ width:270px;height:38px; background:rgba(255,255,255,0.08); border-radius:25px; display:flex;position:relative; backdrop-filter:blur(14px) saturate(180%); border:1px solid rgba(255,255,255,0.25); overflow:hidden; }
-.toggle button{ flex:1;border:none;background:none;color:#fff; font-size:.9rem;font-weight:500;cursor:pointer; z-index:2;transition:.3s; }
-.toggle button.active{ font-weight:600; text-shadow:0 0 6px rgba(255,255,255,0.85); }
-.slider{ position:absolute;top:0;left:0; width:33.333%;height:100%; border-radius:25px; backdrop-filter:blur(28px) saturate(320%); background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.42); box-shadow: inset 0 0 15px rgba(255,255,255,.35),0 0 25px rgba(255,255,255,.55); transition:left .55s cubic-bezier(.18,.8,.35,1.25); }
+.toggle{ width:270px;height:38px; background:rgba(255,255,255,0.08); border-radius:25px; display:flex;position:relative; backdrop-filter:blur(14px) saturate(180%); border:1px solid rgba(255,255,255,0.25); overflow:hidden; transition:.4s; }
+.toggle button{ flex:1;border:none;background:none;color:#fff; font-size:.9rem;font-weight:500;cursor:pointer; z-index:2;transition:.4s; }
+.toggle button.active{ font-weight:600; text-shadow:0 0 6px rgba(255,255,255,.85); }
+.slider{ position:absolute;top:0;left:0; width:33.333%;height:100%; border-radius:25px; backdrop-filter:blur(28px) saturate(320%); background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.42); box-shadow: inset 0 0 15px rgba(255,255,255,.35),0 0 25px rgba(255,255,255,.55); transition:left .5s cubic-bezier(.25,.8,.25,1); }
 
 /* CONTAINER */
-.container{ width:92%; max-width:1100px; margin:120px auto 50px; padding:40px; border-radius:30px; background:rgba(255,255,255,0.05); backdrop-filter:blur(25px) saturate(180%); border:1px solid rgba(255,255,255,0.12); }
-.search{ width:100%; padding:14px; border-radius:16px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#fff; margin-bottom:20px; }
+.container{ width:92%; max-width:1100px; margin:120px auto 50px; padding:40px; border-radius:30px; background:rgba(255,255,255,0.05); backdrop-filter:blur(25px) saturate(180%); border:1px solid rgba(255,255,255,.12); opacity:0; transform:translateY(20px); transition:.6s ease-in-out; }
+.container.show{opacity:1; transform:translateY(0);}
+
+/* SEARCH */
+.search{ width:100%; padding:14px; border-radius:16px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#fff; margin-bottom:20px; transition:.4s; }
 
 /* CATEGORIES & SUBCATEGORIES */
-.categories{display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
-.cat{ padding:10px 18px; border-radius:16px; background:rgba(255,255,255,.08); cursor:pointer; transition:.3s; font-weight:500; }
-.cat:hover,.cat.active{ background:rgba(255,255,255,.28); box-shadow:0 0 18px rgba(255,255,255,.35); }
+.categories{display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap; transition:.5s ease;}
+.cat{ padding:10px 18px; border-radius:16px; background:rgba(255,255,255,.08); cursor:pointer; transition:.35s ease, transform .35s ease; font-weight:500; opacity:0; transform:translateY(-10px) scale(1); }
+.cat.show{opacity:1; transform:translateY(0) scale(1);}
+.cat:hover{ transform:translateY(0) scale(1.05); }
+.cat.active{
+    background:rgba(255,255,255,.28);
+    box-shadow:0 0 18px rgba(255,255,255,.35);
+    transform:translateY(0) scale(1.15);
+    font-weight:600;
+}
 
 /* PRODUCTS */
-.products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:20px; }
-.product{ position: relative; padding:15px; border-radius:22px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12); cursor:pointer; transition:.35s; z-index:1; }
+.products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:25px; transition:.4s ease; }
+.product{ position: relative; padding:15px; border-radius:22px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.12); cursor:pointer; transition:.35s ease, transform .35s ease, box-shadow .35s ease; opacity:0; transform:translateY(20px); }
+.product.show{opacity:1; transform:translateY(0);}
 .product:hover{ transform:translateY(-6px) scale(1.03); box-shadow:0 0 40px rgba(255,255,255,.35), inset 0 0 20px rgba(255,255,255,.08); z-index:10; }
-.product img{ width:100%; border-radius:16px; }
-.old{ opacity:.5;text-decoration:line-through;font-size:.9rem; }
-.sale{ color:#ff4d4d;font-weight:600; }
+.product img{ width:100%; border-radius:18px; transition:.4s ease; }
+.product img:hover{transform:scale(1.05);}
+.old{ opacity:.5;text-decoration:line-through;font-size:.9rem; transition:.3s; }
+.sale{ color:#ff4d4d;font-weight:600; transition:.3s; }
 
 /* MODAL */
-.modal{ position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; }
-.modal.show{display:flex;}
-.modal-card{ width:430px; padding:25px; border-radius:26px; background:rgba(0,0,0,.88); backdrop-filter:blur(35px); border:1px solid rgba(255,255,255,.12);}
+.modal{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:2000; opacity:0; transition:opacity .4s ease; }
+.modal.show{display:flex; opacity:1;}
+.modal-card{ max-width:80%; width:500px; padding:25px; border-radius:26px; background:rgba(0,0,0,.95); backdrop-filter:blur(35px); border:1px solid rgba(255,255,255,.12); transition:.4s ease;}
 .colors{display:flex;gap:10px;margin:15px 0;align-items:center;}
-.color{ width:26px;height:26px;border-radius:50%; border:2px solid #fff;cursor:pointer;transition:.3s; position:relative; }
-.color:hover{transform:scale(1.15)}
+.color{ width:26px;height:26px;border-radius:50%; border:2px solid #fff;cursor:pointer;transition:.3s ease; position:relative; }
+.color:hover{transform:scale(1.15);}
 .color.active{box-shadow:0 0 25px #fff,0 0 40px rgba(255,255,255,.35);}
-.color .status{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); font-size:.6rem; color:#fff; background:rgba(0,0,0,.5); padding:1px 4px; border-radius:6px; }
-.color.unavailable{ opacity:.35; pointer-events:none; }
-.gallery{display:flex;gap:8px;margin-top:10px;}
-.gallery img{width:55px;height:55px;object-fit:cover;border-radius:10px;cursor:pointer;opacity:.6;transition:.3s;}
-.gallery img:hover{opacity:1;transform:scale(1.05)}
+
+/* Маленький круг статуса */
+.color .status {
+    position: absolute;
+    top:0px;
+    right:0px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background: green;
+    border:1px solid #000;
+}
+.color.unavailable .status { background: red; }
+
+.gallery{display:flex;gap:8px;margin-top:10px; overflow-x:auto;}
+.gallery img{width:70px;height:70px;object-fit:cover;border-radius:10px;cursor:pointer;opacity:.6;transition:.35s ease;}
+.gallery img:hover{opacity:1;transform:scale(1.1);}
 .gallery img.active{opacity:1;border:2px solid #fff;}
-.buy{margin-top:15px;padding:12px;border-radius:14px;background:rgba(255,255,255,.22);text-align:center;cursor:pointer;transition:.3s;}
-.buy:hover{box-shadow:0 0 30px rgba(255,255,255,.35);}
-footer{ margin-top:auto; padding:28px 0; background:rgba(255,255,255,0.05); backdrop-filter:blur(18px); border-top:1px solid rgba(255,255,255,0.18); text-align:center; }
+.buy{margin-top:15px;padding:12px;border-radius:14px;background:rgba(255,255,255,.22);text-align:center;cursor:pointer;transition:.3s ease;}
+.buy.disabled{background:rgba(255,255,255,.08); cursor:not-allowed; opacity:.5;}
+.buy:hover{box-shadow:0 0 30px rgba(255,255,255,.35); transition:.35s ease;}
+
+/* FULL IMAGE VIEW */
+.full-img-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; justify-content:center; align-items:center; z-index:3000; cursor:pointer; opacity:0; transition:opacity .4s ease;
+}
+.full-img-overlay.show{display:flex; opacity:1;}
+.full-img-overlay img{max-width:95%; max-height:95%; border-radius:18px; transition:.4s ease;}
+
+/* ТЕХНИЧЕСКИЕ РАБОТЫ */
+.maintenance{ text-align:center; margin-top:100px; }
+.maintenance img{ width:80px; margin-bottom:20px; }
+.maintenance h2{ font-size:2rem; margin-bottom:10px; }
+.maintenance p{ font-size:1.1rem; }
 </style>
 </head>
 <body>
 
 <div id="app"></div>
+<div class="full-img-overlay" id="fullImgOverlay"><img id="fullImg"></div>
 
 <script>
 async function loadStore() {
@@ -74,9 +113,10 @@ async function loadStore() {
 function initStore(STORE){
     const app = document.getElementById("app");
     if(STORE.maintenance){
-        app.innerHTML = `<div style="text-align:center;margin-top:100px;">
-            <h2>🚧 Ведутся технические работы</h2>
-            <p>Следите за обновлениями в <a href="${STORE.telegram}" target="_blank">Telegram</a></p>
+        app.innerHTML = `<div class="maintenance">
+            <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="Технические работы">
+            <h2>ТЕХНИЧЕСКИЕ РАБОТЫ</h2>
+            <p>Сейчас магазин недоступен. Следите за обновлениями в <a href="${STORE.telegram}" target="_blank">Telegram</a></p>
         </div>`;
         return;
     }
@@ -91,17 +131,39 @@ function initStore(STORE){
                 <button data-tab="contacts">Контакты</button>
             </div>
         </div>
-        <div class="container" id="shop">
+
+        <div class="container show" id="shop">
             <input class="search" id="search" placeholder="Поиск товара...">
             <div class="categories" id="categories"></div>
             <div class="categories" id="subCategories"></div>
             <div class="products" id="products"></div>
         </div>
-        <div class="container" id="about" hidden>О нас</div>
-        <div class="container" id="contacts" hidden>Telegram</div>
+
+        <div class="container" id="about" hidden>
+            <h1 style="font-size:2rem; margin-bottom:20px; text-align:center;">О нас</h1>
+            <p style="font-size:1.1rem; line-height:1.8;">
+                HATE STORE — это не просто магазин. Мы создаем уникальные вещи, которые отражают ваш стиль и индивидуальность. 
+                Каждая вещь разрабатывается с любовью к деталям и вниманием к качеству. 
+                Мы следим за трендами, но всегда добавляем свою изюминку, чтобы вы могли выделяться в любой толпе. 
+                Здесь технологии встречаются с креативом, а дизайн становится искусством.
+            </p>
+        </div>
+
+        <div class="container" id="contacts" hidden>
+            <h1 style="font-size:2rem; margin-bottom:20px; text-align:center;">Контакты</h1>
+            <p style="font-size:1.1rem; line-height:1.8;">
+                Связаться с нами можно через Telegram: 
+                <a href="https://t.me/de_mel1" target="_blank">https://t.me/de_mel1</a>
+            </p>
+            <p style="font-size:1.1rem; line-height:1.8;">
+                Менеджер магазина: <a href="https://t.me/manager_username" target="_blank">@manager_username</a><br>
+                Разработчик сайта: <a href="https://t.me/developer_username" target="_blank">@developer_username</a>
+            </p>
+        </div>
+
         <div class="modal" id="modal">
             <div class="modal-card">
-                <img id="modalImg" style="width:100%;border-radius:18px">
+                <img id="modalImg" style="width:100%;border-radius:18px; cursor:pointer;">
                 <div class="gallery" id="gallery"></div>
                 <h2 id="modalName"></h2>
                 <p id="modalDesc"></p>
@@ -110,17 +172,25 @@ function initStore(STORE){
                 <div class="buy" id="buyBtn">Купить</div>
             </div>
         </div>
-        <footer>© 2025 • HATE STORE</footer>
     `;
 
+    // остальной JS код как в оригинале (табы, категории, продукты, модал)
     const slider = document.getElementById("slider");
+    const tabs = ["shop","about","contacts"];
     document.querySelectorAll(".toggle button").forEach((b,i)=>{
         b.onclick = ()=>{
             document.querySelectorAll(".toggle button").forEach(x=>x.classList.remove("active"));
             b.classList.add("active");
             slider.style.left = i*33.333+"%";
-            ["shop","about","contacts"].forEach(id=>document.getElementById(id).hidden=true);
-            document.getElementById(b.dataset.tab).hidden=false;
+
+            tabs.forEach(id=>{
+                const el = document.getElementById(id);
+                el.hidden = true;
+                el.classList.remove("show");
+            });
+            const activeTab = document.getElementById(b.dataset.tab);
+            activeTab.hidden=false;
+            setTimeout(()=>activeTab.classList.add("show"), 10);
         }
     });
 
@@ -131,10 +201,12 @@ function initStore(STORE){
     function renderCategories(){
         const catCont = document.getElementById("categories");
         catCont.innerHTML="";
-        STORE.categories.forEach(c=>{
+        STORE.categories.forEach((c,i)=>{
             const el=document.createElement("div");
             el.className="cat"+(c.id===currentCategory?" active":"");
             el.textContent=c.name;
+            catCont.appendChild(el);
+            setTimeout(()=>el.classList.add("show"), i*60);
             el.onclick=()=>{
                 currentCategory=c.id;
                 currentSub=c.sub?.[0]?.id||null;
@@ -142,7 +214,6 @@ function initStore(STORE){
                 renderSubCategories(c);
                 renderProducts();
             };
-            catCont.appendChild(el);
         });
     }
 
@@ -150,16 +221,17 @@ function initStore(STORE){
         const subCont = document.getElementById("subCategories");
         subCont.innerHTML="";
         if(!cat.sub?.length) return;
-        cat.sub.forEach(s=>{
+        cat.sub.forEach((s,i)=>{
             const el=document.createElement("div");
             el.className="cat"+(s.id===currentSub?" active":"");
             el.textContent=s.name;
+            subCont.appendChild(el);
+            setTimeout(()=>el.classList.add("show"), i*60);
             el.onclick=()=>{
                 currentSub=s.id;
                 renderSubCategories(cat);
                 renderProducts();
             };
-            subCont.appendChild(el);
         });
     }
 
@@ -170,59 +242,86 @@ function initStore(STORE){
             .filter(p=>p.categories.includes(currentCategory))
             .filter(p=>!currentSub||p.categories.includes(currentSub))
             .filter(p=>p.name.toLowerCase().includes(search.value.toLowerCase()))
-            .forEach(p=>{
+            .forEach((p,i)=>{
                 const final=p.discount?p.price*(1-p.discount/100):p.price;
                 const d=document.createElement("div");
                 d.className="product";
                 d.innerHTML=`<img src="${p.colors[0].images[0]}"><h3>${p.name}</h3>${p.discount?`<div class="old">${p.price}₽</div><div class="sale">${final}₽</div>`:`<div>${p.price}₽</div>`}`;
-                d.onclick=()=>openModal(p);
                 productsEl.appendChild(d);
+                setTimeout(()=>d.classList.add("show"), i*80);
+                d.onclick=()=>openModal(p);
             });
     }
 
     search.oninput = renderProducts;
+
     renderCategories();
     renderSubCategories(STORE.categories[0]);
     renderProducts();
 
-    // ===== MODAL WITH STOCK STATUS =====
+    const fullOverlay = document.getElementById("fullImgOverlay");
+    const fullImg = document.getElementById("fullImg");
+
     function openModal(p){
-        const modal=document.getElementById("modal");
+        const modal = document.getElementById("modal");
         modal.classList.add("show");
-        document.getElementById("modalName").textContent=p.name;
-        document.getElementById("modalDesc").textContent=p.desc;
-        document.getElementById("modalColors").innerHTML="";
-        const gallery=document.getElementById("gallery");
-        gallery.innerHTML="";
-        const final=p.discount?p.price*(1-p.discount/100):p.price;
-        document.getElementById("modalPrice").innerHTML=p.discount?`<span class="old">${p.price}₽</span> <span class="sale">${final}₽</span>`:`${p.price}₽`;
+        document.getElementById("modalName").textContent = p.name;
+        document.getElementById("modalDesc").textContent = p.desc;
+        document.getElementById("modalColors").innerHTML = "";
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+        const modalPrice = document.getElementById("modalPrice");
+        modalPrice.innerHTML = p.discount ? `<span class="old">${p.price}₽</span> <span class="sale">${p.price*(1-p.discount/100)}₽</span>` : `${p.price}₽`;
+
+        let oldStatus = document.getElementById("stockStatus");
+        if(oldStatus) oldStatus.remove();
+        let stockStatus = document.createElement("div");
+        stockStatus.id = "stockStatus";
+        stockStatus.style.margin = "10px 0";
+        stockStatus.style.fontWeight = "600";
+        stockStatus.style.fontSize = "1rem";
+        document.getElementById("buyBtn").before(stockStatus);
+
+        function updateStockStatus(c){
+            if(c.stock === false){
+                stockStatus.textContent = "❌ Нет в наличии";
+                stockStatus.style.color = "#ff4d4d";
+                document.getElementById("buyBtn").classList.add("disabled");
+            } else {
+                stockStatus.textContent = "✅ В наличии";
+                stockStatus.style.color = "#4fff4f";
+                document.getElementById("buyBtn").classList.remove("disabled");
+            }
+        }
 
         function setColor(c){
-            document.getElementById("modalImg").src=c.images[0];
-            gallery.innerHTML="";
-            c.images.forEach((img,i)=>{
-                const im=document.createElement("img");
-                im.src=img;
+            document.getElementById("modalImg").src = c.images[0];
+            gallery.innerHTML = "";
+            c.images.forEach((img, i)=>{
+                const im = document.createElement("img");
+                im.src = img;
                 if(i==0) im.classList.add("active");
-                im.onclick=()=>{
+                im.onclick = ()=>{
                     document.querySelectorAll(".gallery img").forEach(x=>x.classList.remove("active"));
                     im.classList.add("active");
-                    document.getElementById("modalImg").src=img;
+                    document.getElementById("modalImg").src = img;
+                    openFullImg(img);
                 };
                 gallery.appendChild(im);
             });
+            updateStockStatus(c);
         }
 
+        document.getElementById("modalImg").onclick = ()=>openFullImg(document.getElementById("modalImg").src);
+
         p.colors.forEach((c,i)=>{
-            const col=document.createElement("div");
-            col.className="color"+(i==0?" active":"")+(c.stock===false?" unavailable":"");
-            col.style.background=c.hex;
-            const status=document.createElement("span");
-            status.className="status";
-            status.textContent=c.stock===false?"Нет в наличии":"В наличии";
-            col.appendChild(status);
-            col.onclick=()=>{ 
-                if(c.stock===false) return;
+            const col = document.createElement("div");
+            col.className = "color" + (i==0?" active":"") + (c.stock===false?" unavailable":"");
+            col.style.background = c.hex;
+            const statusCircle = document.createElement("span");
+            statusCircle.className = "status";
+            col.appendChild(statusCircle);
+            col.onclick = ()=>{ 
                 document.querySelectorAll(".color").forEach(x=>x.classList.remove("active"));
                 col.classList.add("active");
                 setColor(c);
@@ -231,10 +330,16 @@ function initStore(STORE){
         });
 
         setColor(p.colors[0]);
-
-        document.getElementById("buyBtn").onclick=()=>window.open(STORE.telegram,"_blank");
-        modal.onclick=e=>{if(e.target===modal) modal.classList.remove("show");};
+        document.getElementById("buyBtn").onclick = ()=>window.open(STORE.telegram,"_blank");
+        modal.onclick = e=>{if(e.target===modal) modal.classList.remove("show");};
     }
+
+    function openFullImg(src){
+        fullImg.src = src;
+        fullOverlay.classList.add("show");
+    }
+
+    fullOverlay.onclick = ()=>fullOverlay.classList.remove("show");
 }
 
 loadStore();
