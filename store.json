@@ -1,57 +1,44 @@
 {
-  "maintenance": false,
-  "telegram": "https://t.me/your_chat",
-  "categories": [
-    {
-      "id": "clothes",
-      "name": "Одежда",
-      "sub": [
-        {"id": "hoodies", "name": "Худи"},
-        {"id": "tshirts", "name": "Футболки"}
-      ]
-    },
-    {
-      "id": "accessories",
-      "name": "Аксессуары",
-      "sub": [
-        {"id": "glasses", "name": "Очки"},
-        {"id": "hats", "name": "Шапки"}
-      ]
-    }
-  ],
-  "products": [
-    {
-      "name": "HATE Hoodie",
-      "categories": ["clothes", "hoodies"],
-      "desc": "Тёплая худи",
-      "price": 2999,
-      "discount": 20,
-      "colors": [
+    "maintenance": false,
+    "telegram": "https://t.me/your_chat",
+    "categories": [
         {
-          "hex": "#000",
-          "images": ["https://via.placeholder.com/400/000","https://via.placeholder.com/400/111"],
-          "stock": true
-        },
-        {
-          "hex": "#fff",
-          "images": ["https://via.placeholder.com/400/fafafa"],
-          "stock": false
+            "id": "accs",
+            "name": "Аксессуары",
+            "sub": [
+                {
+                    "id": "main",
+                    "name": "Все"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "Cool Glasses",
-      "categories": ["accessories","glasses"],
-      "desc": "Стильные очки",
-      "price": 1499,
-      "discount": 0,
-      "colors": [
+    ],
+    "products": [
         {
-          "hex": "#000",
-          "images": ["https://via.placeholder.com/400/000"],
-          "stock": true
+            "name": "Летучая Мышь",
+            "categories": [
+                "accs",
+                "main"
+            ],
+            "desc": "Милая мышка",
+            "price": 1500,
+            "discount": 20,
+            "colors": [
+                {
+                    "hex": "#cc6600",
+                    "images": [
+                        "https://cdn.discordapp.com/attachments/1451211029890601014/1453768808073269380/d2338ae6-eb84-4346-be5a-1d8cc86c7296.png?ex=694ea735&is=694d55b5&hm=617b2d25f1122bc1dbe6715aafcd56b9e38e9e136b46d9773ceccf092b0fbe03"
+                    ],
+                    "stock": true
+                },
+                {
+                    "hex": "#000000",
+                    "images": [
+                        "https://cdn.discordapp.com/attachments/1451211029890601014/1453768807712686223/6cf013d5-cda8-4670-b3df-92b6870dd8f0.png?ex=694ea735&is=694d55b5&hm=59439b3e738074b5cf0a807495fe8b237ab1233b07b48dd617b31e7c588d2fcd"
+                    ],
+                    "stock": true
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
